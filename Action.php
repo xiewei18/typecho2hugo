@@ -56,8 +56,8 @@ date: "$time"
 ---
 $text
 TMP;
-      $title = str_replace(array(" ","?","\\","/",":","|","*","：","。","？","，","《","》","·",",","、"),' ',$title)
-      $filename = $time_ymd." ".str_replace("  "," ",$title).".md";
+      $title = str_replace(array(" ","?","\\","/",":","|","*","：","。","？","，","《","》","·",",","、"),' ',$title);
+      $filename = $time_ymd." ".str_replace('  ',' ',$title).".md";
       if($content["type"] === "post") {
         $filename = "posts/".$filename;
       }
