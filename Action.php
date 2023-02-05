@@ -3,20 +3,6 @@
 class Export2Hugo_Action extends Typecho_Widget implements Widget_Interface_Do
 {
   /**
-   * Remove Tree
-   *
-   * @access public
-   * @return void
-   */
-  public function removeTree($dir) {
-    $files = array_diff(scandir($dir), array('.','..'));
-    foreach ($files as $file) {
-      (is_dir("$dir/$file")) ? $this->removeTree("$dir/$file") : unlink("$dir/$file");
-    }
-    return rmdir($dir);
-  }
-
-  /**
    * 导出文章
    *
    * @access public
@@ -43,7 +29,7 @@ TEXT;
     $dir = sys_get_temp_dir()."/Export2Hugo";
     if(file_exists($dir)) {
       // exec("rm -rf $dir");
-      removeTree($dir);
+      delTree($dir);
     }
     mkdir($dir);
 
@@ -113,3 +99,13 @@ TMP;
     $this->on($this->request->is('export'))->doExport();
   }
 }
+
+function delTree($dir) {
+  $files = array_diff(scandir($dir), array('.','..'));
+   foreach ($files as $file) {
+     (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+   }
+   return rmdir($dir);
+ }
+
+?>
