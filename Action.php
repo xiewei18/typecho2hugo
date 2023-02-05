@@ -69,14 +69,11 @@ TMP;
     $out_filename = "hugo-".date('Ymd').".zip";
     $outputFile = $dir."/".$out_filename;
     // exec("cd $dir && zip -q -r $outputFile content");
-    $zip = new ZipArchive();
-    $ret = $zip->open($outputFile, ZipArchive::CREATE | ZipArchive::OVERWRITE);
-    if ($ret !== TRUE) {
-        printf('Failed with code %d', $ret);
-    } else {
-        $options = array('add_path' => './', 'remove_all_path' => False);
-        $zip->addGlob($dir.'/*.{md,txt}', GLOB_BRACE, $options);
-        $zip->close();
+    $zip=new ZipArchive();
+    // open($outputFile, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+    if($zip->open($outputFile, ZipArchive::CREATE | ZipArchive::OVERWRITE)=== TRUE){
+        addFilesToZip($contentDir, $zip); //调用方法，对要打包的根目录进行操作，并将ZipArchive的对象传递给方法
+        $zip->close(); //关闭处理的zip文件
     }
     
     header("Content-Type:application/zip");
@@ -107,5 +104,20 @@ function delTree($dir) {
    }
    return rmdir($dir);
  }
+
+function addFilesToZip($path,$zip){
+  $handler=opendir($path); //打开当前文件夹由$path指定。
+  while(($filename=readdir($handler))!==false){
+      if($filename != "." && $filename != ".."){//文件夹文件名字为'.'和‘..'，不要对他们进行操作
+          if(is_dir($path."/".$filename)){// 如果读取的某个对象是文件夹，则递归
+              addFilesToZip($path."/".$filename, $zip);
+          }else{ //将文件加入zip对象
+              $zip->addFile($path."/".$filename,"hugo/".$filename);
+          }
+      }
+  }
+  @closedir($path);
+}
+
 
 ?>
