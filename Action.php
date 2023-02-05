@@ -119,5 +119,4 @@ function addFilesToZip($path,$omitpath,$zip){
   @closedir($path);
 }
 
-
 ?>
