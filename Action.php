@@ -42,6 +42,7 @@ class Export2Hugo_Action extends Typecho_Widget implements Widget_Interface_Do
       $tags = $content["tags"];
       $slug = $content["slug"];
       $time = date('Y-m-d H:i:s', $content["created"]);
+      $time_ymd = date('Y-m-d', $content["created"]);
       $text = str_replace("<!--markdown-->", "", $content["text"]);
       $draft = $content["status"] !== "publish" || $content["password"] ? "true" : "false";
       $hugo = <<<TMP
@@ -56,7 +57,7 @@ class Export2Hugo_Action extends Typecho_Widget implements Widget_Interface_Do
       $text
       TMP;
 
-      $filename = str_replace(array(" ","?","\\","/" ,":" ,"|", "*" ),'-',$title).".md";
+      $filename = $time_ymd." ".str_replace(array(" ","?","\\","/" ,":" ,"|", "*" ),'_',$title).".md";
       
       if($content["type"] === "post") {
         $filename = "posts/".$filename;
