@@ -66,13 +66,13 @@ class Export2Hugo_Action extends Typecho_Widget implements Widget_Interface_Do
       echo $contentDir.$filename;
     }
   
-    $filename = "hugo-".date('Ymd').".zip";
-    $outputFile = $dir."/".$filename;
+    $out_filename = "hugo-".date('Ymd').".zip";
+    $outputFile = $dir."/".$out_filename;
     exec("cd $dir && zip -q -r $outputFile content");
     
     header("Content-Type:application/zip");
     header("Content-Disposition: attachment; filename=$filename");
-    header("Content-length: " . filesize($outputFile));
+    header("Content-length: ".filesize($outputFile));
     header("Pragma: no-cache"); 
     header("Expires: 0"); 
 
