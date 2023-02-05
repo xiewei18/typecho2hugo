@@ -28,7 +28,8 @@ TEXT;
     
     $dir = sys_get_temp_dir()."/Export2Hugo";
     if(file_exists($dir)) {
-      exec("rm -rf $dir");
+      // exec("rm -rf $dir");
+      rmdir($dir);
     }
     mkdir($dir);
 
