@@ -67,7 +67,16 @@ TMP;
   
     $out_filename = "hugo-".date('Ymd').".zip";
     $outputFile = $dir."/".$out_filename;
-    exec("cd $dir && zip -q -r $outputFile content");
+    // exec("cd $dir && zip -q -r $outputFile content");
+    $zip = new ZipArchive();
+    $ret = $zip->open($outputFile, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+    if ($ret !== TRUE) {
+        printf('Failed with code %d', $ret);
+    } else {
+        $options = array('add_path' => './', 'remove_all_path' => False);
+        $zip->addGlob($dir.'/*.{md,txt}', GLOB_BRACE, $options);
+        $zip->close();
+    }
     
     header("Content-Type:application/zip");
     header("Content-Disposition: attachment; filename=$out_filename");
