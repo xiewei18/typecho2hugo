@@ -66,7 +66,7 @@ class Export2Hugo_Action extends Typecho_Widget implements Widget_Interface_Do
       echo $contentDir.$filename;
     }
   
-    $filename = "hugo.".date('Y-m-d').".zip";
+    $filename = "hugo-".date('Ymd').".zip";
     $outputFile = $dir."/".$filename;
     exec("cd $dir && zip -q -r $outputFile content");
     
