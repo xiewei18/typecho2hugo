@@ -11,8 +11,8 @@ include 'menu.php';
     </div>
     <div class="row typecho-page-main" role="form">
       <div id="dbmanager-plugin" class="col-mb-12 col-tb-8 col-tb-offset-2">
-        <p>在您点击下面的按钮后，Typecho 会创建一个 Zip 压缩文件，包含所有的文章和页面，供您保存到计算机中。</p>
-        <p>使用过程中如果有问题，请到 <a href="https://github.com/lizheming/typecho-export-hugo/issues">Github</a> 提出。</p>
+        <p>在您点击下面的按钮后，Typecho 会创建一个 Zip 压缩文件 (通常位于 /tmp/Export2Hugo/ 目录内)，包含所有的文章和页面，供您保存到计算机中。</p>
+        <p>使用过程中如果有问题，请到 <a href="https://github.com/xiewei18/typecho2hugo/issues">Github</a> 提出。</p>
         <form action="<?php $options->index('/action/export2hugo?export'); ?>" method="post">
           <ul class="typecho-option typecho-option-submit" id="typecho-option-item-submit-3">
             <li>

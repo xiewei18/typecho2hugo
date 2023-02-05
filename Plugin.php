@@ -3,9 +3,9 @@
  * Typecho 导出至 Hugo
  *
  * @package Export2Hugo
- * @author 公子
- * @version 0.1.0
- * @link https://imnerd.org
+ * @author lizheming & Wei
+ * @version 1.0.0
+ * @link https://github.com/xiewei18/typecho2hugo/
  */
 class Export2Hugo_Plugin implements Typecho_Plugin_Interface
 {
