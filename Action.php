@@ -13,17 +13,17 @@ class Export2Hugo_Action extends Typecho_Widget implements Widget_Interface_Do
     $prefix = $db->getPrefix();
 
     $sql=<<<TEXT
-select u.screenName author,u.url authorUrl,c.title,c.type,c.text,c.created,c.status status,c.password,t2.category,t1.tags,c.slug from {$prefix}contents c
-left join
-(select cid,CONCAT('"',group_concat(m.name SEPARATOR '","'),'"') tags from {$prefix}metas m,{$prefix}relationships r where m.mid=r.mid and m.type='tag' group by cid ) t1
-on c.cid=t1.cid
-left join
-(select cid,CONCAT('"',GROUP_CONCAT(m.name SEPARATOR '","'),'"') category from {$prefix}metas m,{$prefix}relationships r where m.mid=r.mid and m.type='category' group by cid) t2
-on c.cid=t2.cid
-left join ( select uid, screenName ,url from {$prefix}users)  as u
-on c.authorId = u.uid
-where c.type in ('post', 'page')
-TEXT;
+      select u.screenName author,u.url authorUrl,c.title,c.type,c.text,c.created,c.status status,c.password,t2.category,t1.tags,c.slug from {$prefix}contents c
+      left join
+      (select cid,CONCAT('"',group_concat(m.name SEPARATOR '","'),'"') tags from {$prefix}metas m,{$prefix}relationships r where m.mid=r.mid and m.type='tag' group by cid ) t1
+      on c.cid=t1.cid
+      left join
+      (select cid,CONCAT('"',GROUP_CONCAT(m.name SEPARATOR '","'),'"') category from {$prefix}metas m,{$prefix}relationships r where m.mid=r.mid and m.type='category' group by cid) t2
+      on c.cid=t2.cid
+      left join ( select uid, screenName ,url from {$prefix}users)  as u
+      on c.authorId = u.uid
+      where c.type in ('post', 'page')
+    TEXT;
     $contents = $db->fetchAll($db->query($sql));
     
     $dir = sys_get_temp_dir()."/Export2Hugo";
@@ -46,16 +46,16 @@ TEXT;
       $text = str_replace("<!--markdown-->", "", $content["text"]);
       $draft = $content["status"] !== "publish" || $content["password"] ? "true" : "false";
       $hugo = <<<TMP
----
-title: "$title"
-categories: [ $categories ]
-tags: [ $tags ]
-draft: $draft
-slug: "$slug"
-date: "$time"
----
-$text
-TMP;
+        ---
+        title: "$title"
+        categories: [ $categories ]
+        tags: [ $tags ]
+        draft: $draft
+        slug: "$slug"
+        date: "$time"
+        ---
+        $text
+      TMP;
 
       $filename = $time_ymd." ".str_replace(array(" ","?","\\","/" ,":" ,"|", "*" ),'_',$title).".md";
       
