@@ -18,7 +18,13 @@ Click the `Export` button, and a Hugo-yyyymmdd.zip file will be automatically ge
 
 Let me know if you have any [issues](https://github.com/xiewei18/typecho2hugo/issues) on use.
 
+## Contributors
+<!-- Copy-paste in your Readme.md file -->
+
+<a href = "https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo=xiewei18/typecho2hugo"/>
+</a>
+
 ## LICENSE
 
 [MIT LICENSE](https://github.com/lizheming/typecho-export-hugo/blob/master/LICENSE)
-
